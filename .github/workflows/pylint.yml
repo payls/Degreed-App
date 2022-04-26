@@ -17,4 +17,4 @@ jobs:
         pip install furl
     - name: Analysing the code with pylint
       run: |
-        find . -name 'lambda_function.py' -exec pylint --disable=C0301 \;
+        find . -name 'lambda_function.py';

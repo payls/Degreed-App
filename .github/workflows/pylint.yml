@@ -17,4 +17,4 @@ jobs:
         pip install furl
     - name: Analysing the code with pylint
       run: |
-        find . -name 'lambda_function.py';
+        find . -name 'lambda_function.py' -exec pylint {} \;

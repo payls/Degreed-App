@@ -2,7 +2,6 @@ name: Pylint
 on: [push]
 jobs:
   build:
-    #pylint: disable = line-too-long, too-many-lines, no-name-in-module, import-error, multiple-imports, pointless-string-statement, wrong-import-order
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,6 +15,11 @@ jobs:
         pip install pylint
         pip install requests
         pip install furl
+    - name: Ignore lines
+      run: |
+        pylint:
+          disable:
+            -line-too-long
     - name: Analysing the code with pylint
       run: |
         find . -name 'lambda_function.py' -exec pylint {} \;

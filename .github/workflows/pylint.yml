@@ -15,11 +15,6 @@ jobs:
         pip install pylint
         pip install requests
         pip install furl
-    - name: Ignore lines
-      run: |
-        pylint:
-          disable:
-            -line-too-long
     - name: Analysing the code with pylint
       run: |
-        find . -name 'lambda_function.py' -exec pylint {} \;
+        find . -name 'lambda_function.py' -exec pylint --disable=W \;

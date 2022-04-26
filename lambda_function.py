@@ -156,6 +156,7 @@ def get_recommend_skills(baseurl, headers, course):
 
 
 def recommend_concurrent_loop(baseurl, headers, recommended_num, recommended_courses):
+    # pylint: disable=line-too-long
     """Optimization: Using ThreadPool method to fetch skills using API call for recommended course loop"""
     matching_start_time = time.perf_counter()
     modified_course = []

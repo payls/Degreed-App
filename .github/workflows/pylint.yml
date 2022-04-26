@@ -17,5 +17,5 @@ jobs:
         pip install furl
     - name: Analysing the code with pylint
       run: |
-        pylint --disable=line-too-long
+        pylint --disable=C0301
         find . -name 'lambda_function.py' -exec pylint {} \;

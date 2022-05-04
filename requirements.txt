@@ -1,3 +1,4 @@
 # add pip modules here
 
 requests
+furl

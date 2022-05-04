@@ -2,7 +2,7 @@ from unittest.mock import patch
 from fake_data import inputs
 from helper import resolve_app_path
 resolve_app_path()
-import lambda_function
+import lambda_function # noqa
 
 
 # user inputs

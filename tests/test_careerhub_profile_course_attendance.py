@@ -4,10 +4,11 @@ from fake_data import (
     course_attendance_api_response,
     expected_course_attendance_response,
     inputs,
+    token_string,
 )
 from helper import resolve_app_path
 resolve_app_path()
-import lambda_function
+import lambda_function # noqa
 
 # user inputs
 inputData = inputs.app()
@@ -24,7 +25,7 @@ token_url = "https://" + degreed_base_url
 # language
 language = "en"
 # get token
-token = "-kxz7mYbTrdWL0WYszGf1BHaMYqSnMBp8Fiwak0JRjv5dMoTExxCSGUDkLpTsGM2olF5dns0CcDfFkPOWTNa4zYKJbqDJu5N_TTqL799WIscFWMcvELHZ-xAkU7AU67l5glygzheuJajrZgzvT7il4knjhiKmmvxfBt6pGnorkhxHzVdS60mJbNEgWt1NAngNVeyaRQh087aXpDy-AN5KZDF3VAoGGqxbVB20OmhpjZIhPNSHvVSXS21dynRVPvVTprfpWRtRa4c8BbUryAdcr_BcLRAUAv_rqHWy125UvDn0V_idBEZ48cQZg7-MhxuEceTbMfnS5R3qlzTCkM7fwKMk1QshkmV2xBYyelqi64-4WLzY4yDNW1Y4zPK-n7TlFp-k1IgQUrnXQi4E3LfjhDg_O9IBSNQsBf52Vr4YfONZD_T-FYqEjXIvwmU19tQnZjTfsW88lOMrBuBe1bkx6UxVTU"
+token = token_string.get_token_string()
 # headers
 headers = {"Authorization": "Bearer " + str(token)}
 email = lambda_function.get_email(request_data, app_settings)

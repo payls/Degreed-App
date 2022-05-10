@@ -7,7 +7,7 @@ def app():
             "limit": 10,
             "start": 0,
             # "cursor": '',
-            "term": "Microsoft Office",
+            # "term": "Microsoft Office",
             "fq": {
                 "position_skills": [
                     {"name": "Business Strategy"},

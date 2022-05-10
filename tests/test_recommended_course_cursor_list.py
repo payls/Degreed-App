@@ -1,6 +1,6 @@
 from helper import resolve_app_path
 resolve_app_path()
-import lambda_function
+import lambda_function # noqa
 
 """
 Given endlimit, next_batch, offset, course_limit, course_len, recomm_list, con_list

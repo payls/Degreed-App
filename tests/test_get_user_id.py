@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import patch
-from fake_data import inputs
+from fake_data import inputs, token_string
 from helper import resolve_app_path
 resolve_app_path()
-import lambda_function
+import lambda_function # noqa
 
 
 inputData = inputs.app()
@@ -15,7 +15,7 @@ baseurl = "https://api." + degreed_base_url + "/"
 language = app_settings.get("language", "en")
 # get token
 token_url = "https://" + degreed_base_url
-token = lambda_function.get_access_token(app_settings, token_url)
+token = token_string.get_token_string()
 request_headers = {"Authorization": "Bearer " + str(token)}
 
 """

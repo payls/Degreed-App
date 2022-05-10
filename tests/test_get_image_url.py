@@ -1,6 +1,6 @@
 from helper import resolve_app_path
-import lambda_function
 resolve_app_path()
+import lambda_function # noqa
 
 """
 Given empty url

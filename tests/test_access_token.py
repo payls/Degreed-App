@@ -25,7 +25,6 @@ class GetAccessToken(unittest.TestCase):
     Given valid candidate id
     test that a token returing by get_access_token function is correctly
     """
-
     def test_get_access_token_valid_client_id(self):
         # Mock 'requests' module 'post' method.
         mock_post_patcher = patch("lambda_function.requests.post")

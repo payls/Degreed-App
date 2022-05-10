@@ -28,7 +28,7 @@ class GetDuration(unittest.TestCase):
     """
 
 
-    def test_get_duration_in_minutes():
+    def test_get_duration_in_minutes(self):
         duration_type = "minutes"
         # set fake duration
         duration = 120
@@ -37,7 +37,7 @@ class GetDuration(unittest.TestCase):
         # calling the function which will return value in hours
         response = lambda_function.get_duration(duration_type, duration)
         # to check response should be equal to expected
-        assert expected == response
+        self.assertEqual(response, expected)
 
 
     """
@@ -46,7 +46,7 @@ class GetDuration(unittest.TestCase):
     """
 
 
-    def test_get_duration_in_words():
+    def test_get_duration_in_words(self):
         duration_type = "words"
         # set duration
         duration = 15000
@@ -54,7 +54,5 @@ class GetDuration(unittest.TestCase):
         expected = 1
         # calling the function which will return value in hours
         response = lambda_function.get_duration(duration_type, duration)
-        print("response")
-        print(response)
         # to check response should be equal to expected
-        assert expected == response
+        self.assertEqual(response, expected)

@@ -1,4 +1,5 @@
 import unittest
+from parameterized import parameterized
 from unittest.mock import patch
 from fake_data import inputs, token_string
 from helper import resolve_app_path
@@ -20,7 +21,7 @@ token_url = "https://" + degreed_base_url
 valid_token = token_string.get_token_string()
 
 
-class GetAccessToken(unittest.TestCase):
+class AccessTokenTest(unittest.TestCase):
     """
     Given valid candidate id
     test that a token returing by get_access_token function is correctly
@@ -47,13 +48,18 @@ class GetAccessToken(unittest.TestCase):
         self.assertEqual(valid_token, token)
 
     """
-    Given invalid candidate id
+    Given invalid and blank credentials
     test that a response status code 500 by calling get_access_token function
     """
-
-    def test_get_access_token_invalid_client_id(self):
+    @parameterized.expand([
+        ["degreed_client_id", "7b5a18386173507", 500],
+        ["degreed_client_id", "", 500],
+        ["degreed_client_secret", "259ad32f98f366ea5b29b9cb", 500],
+        ["degreed_client_secret", "", 500]
+    ])
+    def test_get_access_token_crendentials(self, arg1, arg2, expected):
         # make client id invalid
-        app_settings.update({"degreed_client_id": "7b5a18386173507"})
+        app_settings.update({arg1: arg2})
         # Mock 'requests' module 'post' method.
         mock_post_patcher = patch("lambda_function.requests.post")
         # Start patching 'requests.post'.
@@ -64,71 +70,5 @@ class GetAccessToken(unittest.TestCase):
         response = lambda_function.get_access_token(app_settings, token_url)
         # Stop patching 'requests'.
         mock_post_patcher.stop()
-        # getting response object
-        response = lambda_function.get_access_token(app_settings, token_url)
         # to check response status code 500
-        self.assertEqual(response.get("statusCode"), 500)
-
-    """
-    Given empty candidate id
-    test that a response status code 500 by calling get_access_token function
-    """
-
-    def test_get_access_token_empty_client_id(self):
-        # make client id invalid
-        app_settings.update({"degreed_client_id": ""})
-        # Mock 'requests' module 'post' method.
-        mock_post_patcher = patch("lambda_function.requests.post")
-        # Start patching 'requests.post'.
-        mock_post = mock_post_patcher.start()
-        # Configure the mock to return a response with status code 200.
-        mock_post.return_value.status_code = 500
-        # Call the function, which will send a request to the server.
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # Stop patching 'requests'.
-        mock_post_patcher.stop()
-        # getting response object
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # to check response status code 500
-        self.assertEqual(response.get("statusCode"), 500)
-
-    """
-    Given invalid client secret
-    test that a response status code 500 by calling get_access_token function
-    """
-
-    def test_get_access_token_invalid_client_secret(self):
-        # make client secret invalid
-        app_settings.update({"degreed_client_secret": "259ad32f98f366ea5b29b9cb"})
-        # Mock 'requests' module 'post' method.
-        mock_post_patcher = patch("lambda_function.requests.post")
-        # Start patching 'requests.post'.
-        mock_post = mock_post_patcher.start()
-        # Configure the mock to return a response with status code 200.
-        mock_post.return_value.status_code = 500
-        # Call the function, which will send a request to the server.
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # Stop patching 'requests'.
-        mock_post_patcher.stop()
-        # getting response object
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # to check response status code 500
-        self.assertEqual(response.get("statusCode"), 500)
-
-    def test_get_access_token_blank_client_secret(self):
-        # make client secret invalid
-        app_settings.update({"degreed_client_secret": ""})
-        # Mock 'requests' module 'post' method.
-        mock_post_patcher = patch("lambda_function.requests.post")
-        # Start patching 'requests.post'.
-        mock_post = mock_post_patcher.start()
-        # Configure the mock to return a response with status code 200.
-        mock_post.return_value.status_code = 500
-        # Call the function, which will send a request to the server.
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # Stop patching 'requests'.
-        mock_post_patcher.stop()
-        # getting response object
-        response = lambda_function.get_access_token(app_settings, token_url)
-        # to check response status code 500
-        self.assertEqual(response.get("statusCode"), 500)
+        self.assertEqual(response.get("statusCode"), expected)

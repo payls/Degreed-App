@@ -1,5 +1,5 @@
 """
-    - Include all dependencies such as Python Standard Modules and open source libraries
+    - Include all dependencies such as Python Standard Modules and open source librariess
 """
 from __future__ import absolute_import
 
